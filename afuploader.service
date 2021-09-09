@@ -1,0 +1,18 @@
+[Unit]
+Description=autofill upload service
+Before=gdm3.service lightdm.service
+
+[Service]
+Type=simple
+
+; Change these 3 lines
+WorkingDirectory=/home/wipkat/projects/python-upload-template
+ExecStart=/usr/bin/python3 /home/wipkat/projects/python-upload-template/upload-service.py
+User=wipkat
+
+Restart=on-failure
+RestartSec = 5
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
