@@ -1,6 +1,14 @@
+; Make sure that the network-online.target actually waits for network
+; systemctl is-enabled NetworkManager-wait-online.service
+; systemctl is-enabled systemd-networkd-wait-online.service
+; If your setup uses either and it is disabled
+; sudo systemctl enable [your setup]-wait-online.service
+
 [Unit]
 Description=autofill upload service
-Before=gdm3.service lightdm.service
+Wants=network-online.target
+After=network-online.target
+
 
 [Service]
 Type=simple
