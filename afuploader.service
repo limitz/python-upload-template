@@ -7,9 +7,10 @@ Type=simple
 
 ; Change these 3 lines
 WorkingDirectory=/home/wipkat/projects/python-upload-template
+ExecStartPre=/bin/sh /home/wipkat/projects/python-upload-template/qos-enable.sh
 ExecStart=/usr/bin/python3 /home/wipkat/projects/python-upload-template/upload-service.py
-User=wipkat
 
+User=root
 Restart=on-failure
 RestartSec = 5
 KillMode=process

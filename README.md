@@ -1,9 +1,25 @@
 Change afuploader.service so that ExecStart, WorkingDirectory and User reflect your setup
 
-run ./install.sh to copy the service to systemd and enable it on startup
-run ./uninstall.sh to remove the service and disable it
+run ./service-install.sh to copy the service to systemd and enable it on startup
+run ./service-uninstall.sh to remove the service and disable it
 
-follow the log
+---
+
+The service runs as root, which means all the log files and directories that are created are owned by root. The service will start by running qos-enable.sh which sets some caps on local and outbound traffic. Change the file so that it reflects your setup.
+
+You can check that the bandwidth is limited by running a server on another machine (let's call it 10.0.2.2):
+```
+iperf3 -s -p 8080
+```
+
+Then run the following command on the bandwidth limited client, assuming the previous ip
+```
+iperf3 -c 10.0.2.2 -p 8080 -t 30
+```
+
+---
+
+Follow the log and
 create a few files to upload
 ```
 tail -f ./log/autofill-upload.log
